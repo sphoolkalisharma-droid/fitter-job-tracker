@@ -3,87 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitter Pro Job Tracker</title>
+    <title>Fitter Mission Selection - Pro</title>
     <style>
-        :root { --current: #2ecc71; --upcoming: #f1c40f; --expired: #e74c3c; }
+        :root { --current: #2ecc71; --upcoming: #f1c40f; --expired: #e74c3c; --apprentice: #9b59b6; }
         body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; padding: 10px; }
-        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; max-width: 1200px; margin: auto; }
-        .column { background: #fff; border-radius: 12px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 5px solid #ccc; }
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; max-width: 1400px; margin: auto; }
+        .column { background: #fff; border-radius: 12px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 5px solid #ccc; min-height: 200px; }
         .col-current { border-top-color: var(--current); }
         .col-upcoming { border-top-color: var(--upcoming); }
         .col-expired { border-top-color: var(--expired); }
-        
-        h2 { text-align: center; font-size: 1.2rem; margin-top: 0; color: #333; }
-        .job-card { background: #fafafa; border: 1px solid #eee; padding: 10px; margin-bottom: 10px; border-radius: 8px; transition: 0.3s; }
-        .job-card:hover { transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
-        .job-title { font-weight: bold; color: #2c3e50; font-size: 15px; }
-        .job-meta { font-size: 12px; color: #7f8c8d; margin: 5px 0; }
-        .btn { display: inline-block; padding: 5px 10px; font-size: 12px; border-radius: 4px; text-decoration: none; color: white; background: #3498db; }
-        .btn-expired { background: #95a5a6; pointer-events: none; }
-        
-        .badge { font-size: 10px; padding: 2px 6px; border-radius: 10px; color: white; float: right; }
-        .badge-new { background: var(--current); }
+        .col-apprentice { border-top-color: var(--apprentice); }
+        h2 { text-align: center; font-size: 1.1rem; color: #333; margin-top: 0; }
+        .job-card { background: #fafafa; border: 1px solid #eee; padding: 12px; margin-bottom: 10px; border-radius: 8px; }
+        .job-title { font-weight: bold; color: #2c3e50; font-size: 14px; }
+        .btn { display: block; text-align: center; padding: 8px; margin-top: 10px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; font-size: 13px; }
     </style>
 </head>
 <body>
 
-<h1 style="text-align:center; color:#2c3e50;">Fitter Selection Mission 2026</h1>
+<h1 style="text-align:center; color:#2c3e50;">Fitter Selection Portal 2026</h1>
 
 <div class="dashboard">
-    <div class="column col-current">
-        <h2>✅ अभी भरें (Current)</h2>
-        <div id="current-list">लोड हो रहा है...</div>
-    </div>
-
-    <div class="column col-upcoming">
-        <h2>⏳ आने वाली (Upcoming)</h2>
-        <div id="upcoming-list">लोड हो रहा है...</div>
-    </div>
-
-    <div class="column col-expired">
-        <h2>❌ खत्म हो गई (Expired)</h2>
-        <div id="expired-list">लोड हो रहा है...</div>
-    </div>
+    <div class="column col-current"><h2>✅ Permanent Jobs</h2><div id="current-list"></div></div>
+    <div class="column col-upcoming"><h2>⏳ Upcoming</h2><div id="upcoming-list"></div></div>
+    <div class="column col-apprentice"><h2>🎓 Apprentice</h2><div id="apprentice-list"></div></div>
+    <div class="column col-expired"><h2>❌ Expired</h2><div id="expired-list"></div></div>
 </div>
 
 <script>
-    fetch('jobs.json')
-        .then(res => res.json())
-        .then(data => {
-            const currentDiv = document.getElementById('current-list');
-            const upcomingDiv = document.getElementById('upcoming-list');
-            const expiredDiv = document.getElementById('expired-list');
-            
-            currentDiv.innerHTML = ''; upcomingDiv.innerHTML = ''; expiredDiv.innerHTML = '';
+    fetch('jobs.json').then(res => res.json()).then(data => {
+        const divs = {
+            current: document.getElementById('current-list'),
+            upcoming: document.getElementById('upcoming-list'),
+            apprentice: document.getElementById('apprentice-list'),
+            expired: document.getElementById('expired-list')
+        };
 
-            data.forEach(job => {
-                const title = job.title.toLowerCase();
-                const card = `
-                    <div class="job-card">
-                        <div class="job-title">${job.title}</div>
-                        <div class="job-meta">📍 ${job.location || 'India'} | 🏢 ${job.company || 'Dept'}</div>
-                        <a href="${job.link}" target="_blank" class="btn ${title.includes('expired') || title.includes('closed') ? 'btn-expired' : ''}">
-                            ${title.includes('expired') ? 'Closed' : 'Details'}
-                        </a>
-                    </div>
-                `;
+        data.forEach((job, index) => {
+            const title = job.title.toLowerCase();
+            const card = `
+                <div class="job-card">
+                    <div class="job-title">${job.title}</div>
+                    <div style="font-size:12px; color:gray;">${job.company}</div>
+                    <a href="details.html?id=${index}" class="btn">View Details & Apply</a>
+                </div>`;
 
-                // छाँटने का लॉजिक (Filtering Logic)
-                if (title.includes('upcoming') || title.includes('soon') || title.includes('coming')) {
-                    upcomingDiv.innerHTML += card;
-                } else if (title.includes('expired') || title.includes('closed') || title.includes('last date over')) {
-                    expiredDiv.innerHTML += card;
-                } else {
-                    currentDiv.innerHTML += card;
-                }
-            });
-
-            // अगर कोई कॉलम खाली रहे
-            if(currentDiv.innerHTML === '') currentDiv.innerHTML = '<p style="font-size:12px; color:gray;">अभी कोई एक्टिव वैकेंसी नहीं है।</p>';
-            if(upcomingDiv.innerHTML === '') upcomingDiv.innerHTML = '<p style="font-size:12px; color:gray;">कोई सूचना नहीं मिली।</p>';
-            if(expiredDiv.innerHTML === '') expiredDiv.innerHTML = '<p style="font-size:12px; color:gray;">पुरानी वैकेंसी यहाँ दिखेंगी।</p>';
+            if (title.includes('apprentice')) divs.apprentice.innerHTML += card;
+            else if (title.includes('upcoming') || title.includes('soon')) divs.upcoming.innerHTML += card;
+            else if (title.includes('expired') || title.includes('closed')) divs.expired.innerHTML += card;
+            else divs.current.innerHTML += card;
         });
+    });
 </script>
-
 </body>
 </html>
