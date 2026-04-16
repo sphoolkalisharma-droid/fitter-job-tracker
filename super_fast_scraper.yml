@@ -1,0 +1,33 @@
+name: Super Fast Scraper 2026
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install All Tools
+        run: |
+          pip install pandas requests beautifulsoup4 feedparser
+
+      - name: Run Scraper
+        run: python scraper.py
+
+      - name: Save Data
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add jobs.csv
+          git commit -m "Auto Update Jobs" || exit 0
+          git push
