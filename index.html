@@ -3,112 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>6-Column Dashboard</title>
+    <title>Satyam's 6-Column Dashboard</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: sans-serif; background-color: #eef2f3; padding: 15px; }
-        .header { text-align: center; margin-bottom: 20px; color: #333; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #0f172a; color: white; padding: 15px; }
+        .header { text-align: center; margin-bottom: 20px; }
         
-        /* 6 अलग-अलग डिब्बों के लिए ग्रिड */
-        .main-container {
+        .main-grid {
             display: grid;
-            grid-template-columns: 1fr; /* मोबाइल के लिए एक के नीचे एक */
+            grid-template-columns: 1fr;
             gap: 15px;
             max-width: 900px;
             margin: 0 auto;
         }
-
-        /* लैपटॉप या बड़ी स्क्रीन के लिए 2 कॉलम में दिखेंगे */
-        @media (min-width: 600px) {
-            .main-container { grid-template-columns: 1fr 1fr; }
-        }
+        @media (min-width: 600px) { .main-grid { grid-template-columns: 1fr 1fr; } }
 
         .column-box {
-            background: #ffffff;
-            border-radius: 10px;
-            border: 2px solid #2980b9;
+            background: #1e293b;
+            border-radius: 12px;
+            border: 1px solid #334155;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
 
         .column-header {
-            background: #2980b9;
+            background: #3b82f6;
             color: white;
-            padding: 15px;
+            padding: 18px;
             cursor: pointer;
             font-weight: bold;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 1.1rem;
         }
 
         .column-content {
-            display: none; /* शुरुआत में पूरी तरह बंद */
+            display: none; /* डिफ़ॉल्ट रूप से सब बंद रहेगा */
             padding: 15px;
-            background: #fff;
-            color: #444;
-            border-top: 1px solid #ddd;
+            background: #1e293b;
+            border-top: 1px solid #334155;
         }
 
-        .active-header { background: #1a5276; }
+        .data-item {
+            background: #0f172a;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            border-left: 4px solid #3b82f6;
+        }
+        .active-header { background: #2563eb; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h2>सत्यम का 6-कॉलम डैशबोर्ड</h2>
-    <p>हर डिब्बा अलग काम करेगा</p>
+    <h1>मिशन सिलेक्शन डैशबोर्ड</h1>
+    <p>3 Career + 3 Study Columns</p>
 </div>
 
-<div class="main-container">
+<div class="main-grid">
     <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">1. Upcoming Vacancy <span>▼</span></div>
-        <div class="column-content">यहाँ सिर्फ आने वाली नौकरियों की लिस्ट होगी।</div>
+        <div class="column-header" onclick="toggleMe(this)">1. Upcoming Vacancy <span>+</span></div>
+        <div id="upcoming-list" class="column-content">जल्द आ रही नौकरियों का डेटा...</div>
     </div>
 
     <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">2. Present Vacancy <span>▼</span></div>
-        <div class="column-content">यहाँ अभी चल रहे फॉर्म (NCL/IGM) की जानकारी होगी।</div>
+        <div class="column-header" onclick="toggleMe(this)">2. Present Vacancy <span>+</span></div>
+        <div id="present-list" class="column-content">सक्रिय फॉर्म का डेटा...</div>
     </div>
 
     <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">3. Past & Apprentice <span>▼</span></div>
-        <div class="column-content">पुरानी वेकेंसी और अप्रेंटिस का डेटा यहाँ है।</div>
+        <div class="column-header" onclick="toggleMe(this)">3. Past & Apprentice <span>+</span></div>
+        <div class="column-content">पुराना और अप्रेंटिस डेटा।</div>
     </div>
 
     <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">4. AI & PYQ <span>▼</span></div>
-        <div class="column-content">टेक्निकल फिटर के पिछले साल के सवाल।</div>
+        <div class="column-header" onclick="toggleMe(this)">4. AI & PYQ (Questions) <span>+</span></div>
+        <div id="question-list" class="column-content">सवालों को लोड किया जा रहा है...</div>
     </div>
 
     <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">5. Technical Language <span>▼</span></div>
-        <div class="column-content">हिंदी-इंग्लिश टेक्निकल शब्द यहाँ मिलेंगे।</div>
+        <div class="column-header" onclick="toggleMe(this)">5. Technical Language <span>+</span></div>
+        <div class="column-content">ट्रेड शब्दावली (Hindi/English)।</div>
     </div>
 
     <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">6. Mission 90 Days <span>▼</span></div>
-        <div class="column-content">90 दिनों का स्टडी प्लान और प्रोग्रेस।</div>
+        <div class="column-header" onclick="toggleMe(this)">6. Mission 90 Days <span>+</span></div>
+        <div class="column-content">डेली प्रोग्रेस ट्रैकर।</div>
     </div>
 </div>
 
 <script>
+    // क्लिक करने पर खुलने-बंद होने का फंक्शन
     function toggleMe(element) {
-        // सबसे पहले उस हेडर के नीचे वाले कंटेंट को ढूंढें
         var content = element.nextElementSibling;
-        
-        // चेक करें कि क्या वह पहले से खुला है
         if (content.style.display === "block") {
             content.style.display = "none";
-            element.classList.remove("active-header");
-            element.querySelector("span").innerText = "▼";
+            element.querySelector("span").innerText = "+";
         } else {
-            // कंटेंट खोलें
             content.style.display = "block";
-            element.classList.add("active-header");
-            element.querySelector("span").innerText = "▲";
+            element.querySelector("span").innerText = "-";
         }
     }
+
+    // आपकी JSON फाइलों से डेटा खींचने का कोड
+    async function loadData() {
+        try {
+            // Jobs डेटा लोड करना
+            const jobRes = await fetch('jobs.json');
+            const jobs = await jobRes.json();
+            document.getElementById('present-list').innerHTML = jobs.map(j => `<div class="data-item">${j.title || j.department}</div>`).join('');
+
+            // Question डेटा लोड करना
+            const qRes = await fetch('question.json');
+            const qs = await qRes.json();
+            document.getElementById('question-list').innerHTML = qs.map(q => `<div class="data-item">${q.question || q.text}</div>`).join('');
+        } catch (e) {
+            console.log("Data load error:", e);
+        }
+    }
+
+    loadData();
 </script>
 
 </body>
