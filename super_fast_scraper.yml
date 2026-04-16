@@ -1,83 +1,31 @@
-name: Super Fast Scraper 2026
+name: Master_Job_Scanner
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 2 * * *'
+  workflow_dispatch:  # इससे 'Run workflow' बटन आएगा
 
 jobs:
-  build:
+  update_site:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.9'
-
-      - name: Install All Tools
-        run: |
-          pip install pandas requests beautifulsoup4 feedparser
-
-      - name: Run Scraper
-        run: python scraper.py
-
-      - name: Save Data
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add jobs.csv
-          git commit -m "Auto Update Jobs" || exit 0
-          git push
-          name: Master Job Controller
-
-on:
-  workflow_dispatch:
-    inputs:
-      script_type:
-        description: 'कौन सा स्क्रैपर रन करना है?'
-        required: true
-        default: 'global'
-        type: choice
-        options:
-        - global
-        - superfast
-        - sarkari_result
-
-  schedule:
-    - cron: '0 0 * * *' # रोज़ रात को अपने आप 'Global' चलेगा
-
-jobs:
-  run-scraper:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Python
+      - name: Python Setup
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      - name: Install Dependencies
-        run: pip install feedparser requests beautifulsoup4
+      - name: Install feedparser
+        run: pip install feedparser requests
 
-      - name: Run Selected Script
-        run: |
-          if [ "${{ github.event.inputs.script_type }}" == "superfast" ]; then
-            python superfast_script.py
-          elif [ "${{ github.event.inputs.script_type }}" == "sarkari_result" ]; then
-            python sarkari_script.py
-          else
-            python update_jobs.py
-          fi
+      - name: Run Scraper
+        run: python update_jobs.py  # यह तुम्हारी पाइथन फाइल को चलाएगा
 
-      - name: Commit and Push
+      - name: Save Jobs
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           git add jobs.json
-          git commit -m "Jobs updated via ${{ github.event.inputs.script_type }}" || exit 0
+          git commit -m "Unlimited Jobs Added" || exit 0
           git push
+          
