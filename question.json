@@ -1,0 +1,48 @@
+{
+  "career_tracker": {
+    "upcoming_vacancies": [
+      {
+        "department": "Railway (RRB/ALP)",
+        "expected_date": "TBD",
+        "status": "Waiting for Notification"
+      }
+    ],
+    "present_vacancies": [
+      {
+        "department": "PSU (NCL/IGM)",
+        "last_date": "Check Official Portal",
+        "status": "Active"
+      }
+    ],
+    "past_and_apprentice": [
+      {
+        "title": "Historical Records",
+        "type": "Apprentice/Past Job",
+        "remark": "For reference only"
+      }
+    ]
+  },
+  "study_vault": {
+    "ai_and_pyq": [
+      {
+        "question_id": "PYQ_001",
+        "subject": "Fitter Trade",
+        "question": "Which gauge is used to check the internal diameter of a job?",
+        "answer": "Internal Micrometer / Plug Gauge"
+      }
+    ],
+    "technical_language": [
+      {
+        "term_en": "Clearance Fit",
+        "term_hi": "क्लियरेंस फिट",
+        "definition": "When the hole size is always larger than the shaft size."
+      }
+    ],
+    "mission_selection_misc": [
+      {
+        "topic": "Workshop Calculation",
+        "priority": "High"
+      }
+    ]
+  }
+}
