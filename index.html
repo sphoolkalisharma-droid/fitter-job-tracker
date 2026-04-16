@@ -1,63 +1,115 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitter Selection Mission 2026</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6-Column Dashboard</title>
     <style>
-        :root { --current: #2ecc71; --upcoming: #f1c40f; --apprentice: #9b59b6; --pyq: #3498db; --ai: #e67e22; --dict: #6c5ce7; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; padding: 10px; }
-        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; max-width: 1400px; margin: auto; }
-        .column { background: #fff; border-radius: 12px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 5px solid #ccc; margin-bottom: 20px; }
-        .col-current { border-top-color: var(--current); } .col-upcoming { border-top-color: var(--upcoming); } .col-apprentice { border-top-color: var(--apprentice); }
-        .col-pyq { border-top-color: var(--pyq); } .col-ai { border-top-color: var(--ai); } .col-dict { border-top-color: var(--dict); }
-        h2 { text-align: center; font-size: 1.1rem; color: #333; margin-top: 0; }
-        .card { background: #fafafa; border: 1px solid #eee; padding: 12px; margin-bottom: 10px; border-radius: 8px; }
-        .btn { display: block; text-align: center; padding: 8px; margin-top: 10px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; font-size: 13px; border: none; width: 100%; cursor: pointer; }
-        .ans { display: none; color: #155724; background: #d4edda; padding: 8px; border-radius: 4px; margin-top: 10px; font-size: 13px; border-left: 3px solid #28a745; }
-        .dict-box { display: flex; justify-content: space-between; border-bottom: 1px solid #ddd; padding: 5px 0; font-size: 13px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: sans-serif; background-color: #eef2f3; padding: 15px; }
+        .header { text-align: center; margin-bottom: 20px; color: #333; }
+        
+        /* 6 अलग-अलग डिब्बों के लिए ग्रिड */
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr; /* मोबाइल के लिए एक के नीचे एक */
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* लैपटॉप या बड़ी स्क्रीन के लिए 2 कॉलम में दिखेंगे */
+        @media (min-width: 600px) {
+            .main-container { grid-template-columns: 1fr 1fr; }
+        }
+
+        .column-box {
+            background: #ffffff;
+            border-radius: 10px;
+            border: 2px solid #2980b9;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .column-header {
+            background: #2980b9;
+            color: white;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .column-content {
+            display: none; /* शुरुआत में पूरी तरह बंद */
+            padding: 15px;
+            background: #fff;
+            color: #444;
+            border-top: 1px solid #ddd;
+        }
+
+        .active-header { background: #1a5276; }
     </style>
 </head>
 <body>
-<h1 style="text-align:center; color:#2c3e50;">Fitter Selection Portal</h1>
-<div class="dashboard">
-    <div class="column col-current"><h2>✅ Permanent Jobs</h2><div id="current-list"></div></div>
-    <div class="column col-upcoming"><h2>⏳ Upcoming</h2><div id="upcoming-list"></div></div>
-    <div class="column col-apprentice"><h2>🎓 Apprentice</h2><div id="apprentice-list"></div></div>
+
+<div class="header">
+    <h2>सत्यम का 6-कॉलम डैशबोर्ड</h2>
+    <p>हर डिब्बा अलग काम करेगा</p>
 </div>
-<h2 style="text-align:center; margin-top:30px;">🎯 मिशन सिलेक्शन (स्टडी जोन)</h2>
-<div class="dashboard">
-    <div class="column col-pyq"><h2>📚 All India PYQ</h2><div id="pyq-display"></div></div>
-    <div class="column col-ai"><h2>🔥 AI Daily चैलेंज</h2><div id="daily-ai-set"></div></div>
-    <div class="column col-dict"><h2>📖 Technical Dictionary</h2><div id="dict-list"></div></div>
+
+<div class="main-container">
+    <div class="column-box">
+        <div class="column-header" onclick="toggleMe(this)">1. Upcoming Vacancy <span>▼</span></div>
+        <div class="column-content">यहाँ सिर्फ आने वाली नौकरियों की लिस्ट होगी।</div>
+    </div>
+
+    <div class="column-box">
+        <div class="column-header" onclick="toggleMe(this)">2. Present Vacancy <span>▼</span></div>
+        <div class="column-content">यहाँ अभी चल रहे फॉर्म (NCL/IGM) की जानकारी होगी।</div>
+    </div>
+
+    <div class="column-box">
+        <div class="column-header" onclick="toggleMe(this)">3. Past & Apprentice <span>▼</span></div>
+        <div class="column-content">पुरानी वेकेंसी और अप्रेंटिस का डेटा यहाँ है।</div>
+    </div>
+
+    <div class="column-box">
+        <div class="column-header" onclick="toggleMe(this)">4. AI & PYQ <span>▼</span></div>
+        <div class="column-content">टेक्निकल फिटर के पिछले साल के सवाल।</div>
+    </div>
+
+    <div class="column-box">
+        <div class="column-header" onclick="toggleMe(this)">5. Technical Language <span>▼</span></div>
+        <div class="column-content">हिंदी-इंग्लिश टेक्निकल शब्द यहाँ मिलेंगे।</div>
+    </div>
+
+    <div class="column-box">
+        <div class="column-header" onclick="toggleMe(this)">6. Mission 90 Days <span>▼</span></div>
+        <div class="column-content">90 दिनों का स्टडी प्लान और प्रोग्रेस।</div>
+    </div>
 </div>
+
 <script>
-    fetch('jobs.json').then(res => res.json()).catch(()=>[]).then(data => {
-        const divs = { current: document.getElementById('current-list'), upcoming: document.getElementById('upcoming-list'), apprentice: document.getElementById('apprentice-list') };
-        data.forEach((job, i) => {
-            const card = `<div class="card"><b>${job.title}</b><br><small>${job.company}</small><a href="details.html?id=${i}" class="btn">विवरण</a></div>`;
-            if (job.title.toLowerCase().includes('apprentice')) divs.apprentice.innerHTML += card;
-            else if (job.title.toLowerCase().includes('upcoming')) divs.upcoming.innerHTML += card;
-            else divs.current.innerHTML += card;
-        });
-    });
-    fetch('questions.json').then(res => res.json()).catch(()=>({})).then(data => {
-        if(data.pyq?.length) {
-            const q = data.pyq[Math.floor(Math.random()*data.pyq.length)];
-            document.getElementById('pyq-display').innerHTML = `<div class="card"><b>Q: ${q.q}</b><br><small>${q.dept}</small><div id="p-ans" class="ans">${q.a}</div><button class="btn" onclick="document.getElementById('p-ans').style.display='block'">Check Ans</button></div>`;
+    function toggleMe(element) {
+        // सबसे पहले उस हेडर के नीचे वाले कंटेंट को ढूंढें
+        var content = element.nextElementSibling;
+        
+        // चेक करें कि क्या वह पहले से खुला है
+        if (content.style.display === "block") {
+            content.style.display = "none";
+            element.classList.remove("active-header");
+            element.querySelector("span").innerText = "▼";
+        } else {
+            // कंटेंट खोलें
+            content.style.display = "block";
+            element.classList.add("active-header");
+            element.querySelector("span").innerText = "▲";
         }
-        if(data.ai_daily_sets?.length) {
-            const set = data.ai_daily_sets[data.ai_daily_sets.length-1];
-            let html = `<p style="text-align:center; font-size:10px;">${set.set_date}</p>`;
-            set.questions.forEach((q, i) => {
-                html += `<div class="card"><b>Q${i+1}: ${q.q}</b><div id="ai-ans-${i}" class="ans">${q.a}</div><button class="btn" style="background:#e67e22;" onclick="document.getElementById('ai-ans-${i}').style.display='block'">Ans</button></div>`;
-            });
-            document.getElementById('daily-ai-set').innerHTML = html;
-        }
-        if(data.dictionary?.length) {
-            let dHtml = data.dictionary.map(w => `<div class="dict-box"><b>${w.en}</b><span>➜ ${w.hi}</span></div>`).join('');
-            document.getElementById('dict-list').innerHTML = `<div class="card">${dHtml}</div>`;
-        }
-    });
+    }
 </script>
+
 </body>
 </html>
