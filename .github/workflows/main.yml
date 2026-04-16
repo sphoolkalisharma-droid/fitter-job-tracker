@@ -1,33 +1,32 @@
-name: Super Fast Scraper 2026
+name: Global Job Auto Update
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 0 * * *' # हर रात 12 बजे अपने आप चलेगा
+  workflow_dispatch:      # जब मन करे बटन दबाकर अपडेट करें
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      - name: Install All Tools
-        run: |
-          pip install pandas requests beautifulsoup4 feedparser
+      - name: Install Tools
+        run: pip install feedparser
 
-      - name: Run Scraper
-        run: python scraper.py
+      - name: Run Master Scraper
+        run: python update_jobs.py
 
-      - name: Save Data
+      - name: Commit and Push Changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add jobs.csv
-          git commit -m "Auto Update Jobs" || exit 0
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add jobs.json
+          git commit -m "Auto-updated vacancies" || exit 0
           git push
