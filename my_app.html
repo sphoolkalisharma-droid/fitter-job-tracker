@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satyam's 6-Column Career Vault</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f7f6; padding: 20px; }
+        .header { text-align: center; color: #2c3e50; margin-bottom: 30px; }
+        
+        /* कॉलम का स्टाइल */
+        .column-container { max-width: 800px; margin: 0 auto; }
+        .column { background: white; margin-bottom: 10px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        
+        /* बटन स्टाइल (जो शुरुआत में बंद दिखेगा) */
+        .column-btn { 
+            width: 100%; padding: 15px; border: none; outline: none;
+            background: #2980b9; color: white; text-align: left;
+            font-size: 18px; cursor: pointer; transition: 0.3s;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .column-btn:hover { background: #3498db; }
+        .column-btn::after { content: '+'; font-size: 20px; }
+        .column-btn.active::after { content: '-'; }
+
+        /* कंटेंट स्टाइल (जो डिफ़ॉल्ट में छिपा रहेगा) */
+        .column-content { 
+            display: none; padding: 20px; background: #fff; border-top: 1px solid #eee;
+            color: #333; line-height: 1.6;
+        }
+
+        /* क्विज और जॉब लिस्ट का स्टाइल */
+        .job-tag { background: #e74c3c; color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px; }
+        .q-box { background: #f9f9f9; padding: 10px; border-left: 4px solid #27ae60; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>मिशन सिलेक्शन (3+3 स्ट्रैटेजी)</h1>
+    <p>आपका पर्सनल स्टडी और करियर ट्रैकर</p>
+</div>
+
+<div class="column-container">
+    <div class="column">
+        <button class="column-btn">1. Upcoming Vacancy (आने वाली भर्तियाँ)</button>
+        <div class="column-content">
+            <p><strong>RRB ALP/Technician:</strong> जल्द आने वाली है। <span class="job-tag">Wait</span></p>
+            <p><strong>Other PSUs:</strong> ISRO और DRDO के अपडेट यहाँ दिखेंगे।</p>
+        </div>
+    </div>
+
+    <div class="column">
+        <button class="column-btn">2. Present Vacancy (अभी सक्रिय भर्तियाँ)</button>
+        <div class="column-content">
+            <p><strong>NCL/IGM:</strong> फॉर्म की स्थिति चेक करें। <span class="job-tag">Active</span></p>
+            <p>अपनी तैयारी का % यहाँ ट्रैक करें।</p>
+        </div>
+    </div>
+
+    <div class="column">
+        <button class="column-btn">3. Past & Apprentice (पिछला रिकॉर्ड)</button>
+        <div class="column-content">
+            <p>पुराने अप्रेंटिसशिप एग्जाम्स और उनके रिजल्ट्स यहाँ रहेंगे।</p>
+        </div>
+    </div>
+
+    <div class="column">
+        <button class="column-btn">4. AI & PYQ (अभ्यास प्रश्न)</button>
+        <div class="column-content">
+            <div class="q-box">
+                <strong>प्रश्न:</strong> माइक्रोमीटर का प्रयोग करते समय 'रैचेट स्टॉप' का क्या कार्य है?
+                <br><em>(क्लिक करके जवाब देखें)</em>
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <button class="column-btn">5. Technical Language (शब्दावली)</button>
+        <div class="column-content">
+            <p><strong>Tolerance:</strong> उच्च सीमा और निम्न सीमा का अंतर।</p>
+            <p><strong>Clearance:</strong> दो मिलने वाले भागों के बीच की छूट।</p>
+        </div>
+    </div>
+
+    <div class="column">
+        <button class="column-btn">6. Mission 90 Days (स्टडी प्लान)</button>
+        <div class="column-content">
+            <p>आज का लक्ष्य: <strong>Precision Instruments Revision</strong></p>
+            <p>प्रगति: Day 45/90</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // यह स्क्रिप्ट बटनों को कंट्रोल करती है
+    var acc = document.getElementsByClassName("column-btn");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            // बटन का कलर और प्लस/माइनस साइन बदलना
+            this.classList.toggle("active");
+            
+            // कंटेंट को खोलना या बंद करना
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
