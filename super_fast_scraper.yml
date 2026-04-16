@@ -31,3 +31,53 @@ jobs:
           git add jobs.csv
           git commit -m "Auto Update Jobs" || exit 0
           git push
+          name: Master Job Controller
+
+on:
+  workflow_dispatch:
+    inputs:
+      script_type:
+        description: 'कौन सा स्क्रैपर रन करना है?'
+        required: true
+        default: 'global'
+        type: choice
+        options:
+        - global
+        - superfast
+        - sarkari_result
+
+  schedule:
+    - cron: '0 0 * * *' # रोज़ रात को अपने आप 'Global' चलेगा
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: pip install feedparser requests beautifulsoup4
+
+      - name: Run Selected Script
+        run: |
+          if [ "${{ github.event.inputs.script_type }}" == "superfast" ]; then
+            python superfast_script.py
+          elif [ "${{ github.event.inputs.script_type }}" == "sarkari_result" ]; then
+            python sarkari_script.py
+          else
+            python update_jobs.py
+          fi
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add jobs.json
+          git commit -m "Jobs updated via ${{ github.event.inputs.script_type }}" || exit 0
+          git push
