@@ -3,104 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satyam Mission Selection</title>
+    <title>Satyam Auto-Dashboard</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #0f172a; color: white; padding: 15px; }
-        .header { text-align: center; margin-bottom: 20px; }
-        .main-grid { display: grid; grid-template-columns: 1fr; gap: 12px; max-width: 800px; margin: 0 auto; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #0f172a; color: white; padding: 10px; }
+        .main-grid { display: grid; grid-template-columns: 1fr; gap: 10px; max-width: 800px; margin: 0 auto; }
         @media (min-width: 600px) { .main-grid { grid-template-columns: 1fr 1fr; } }
-        .column-box { background: #1e293b; border-radius: 12px; border: 1px solid #334155; overflow: hidden; }
-        .column-header { background: #3b82f6; color: white; padding: 18px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; }
-        .column-content { display: none; padding: 15px; background: #1e293b; border-top: 1px solid #334155; max-height: 400px; overflow-y: auto; }
-        .data-item { background: #0f172a; padding: 12px; margin-bottom: 8px; border-radius: 6px; border-left: 4px solid #3b82f6; font-size: 14px; }
-        .data-item a { color: #60a5fa; text-decoration: none; display: block; margin-top: 5px; }
+        .column-box { background: #1e293b; border-radius: 8px; border: 1px solid #334155; overflow: hidden; }
+        .column-header { background: #3b82f6; padding: 15px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; }
+        .column-content { display: none; padding: 15px; border-top: 1px solid #334155; max-height: 400px; overflow-y: auto; }
+        .data-item { background: #0f172a; padding: 12px; margin-bottom: 8px; border-radius: 6px; border-left: 4px solid #3b82f6; font-size: 14px; line-height: 1.5; }
+        .data-item a { color: #60a5fa; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>मिशन सिलेक्शन (3+3)</h1>
-    <p>करियर और स्टडी डैशबोर्ड</p>
-</div>
+<h2 style="text-align:center; margin: 20px 0;">मिशन सिलेक्शन: ऑटो-डैशबोर्ड</h2>
 
 <div class="main-grid">
     <div class="column-box">
         <div class="column-header" onclick="toggleMe(this)">1. Upcoming Vacancy <span>+</span></div>
-        <div class="column-content">जल्द आ रही भर्तियों की जानकारी...</div>
+        <div class="column-content">जल्द आने वाली सूचनाएं...</div>
     </div>
 
     <div class="column-box">
         <div class="column-header" onclick="toggleMe(this)">2. Present Vacancy <span>+</span></div>
-        <div id="present-list" class="column-content">लोड हो रहा है...</div>
+        <div id="present-list" class="column-content">नौकरियां लोड हो रही हैं...</div>
     </div>
 
     <div class="column-box">
         <div class="column-header" onclick="toggleMe(this)">3. Past & Apprentice <span>+</span></div>
-        <div class="column-content">पुरानी भर्तियाँ और अप्रेंटिस रिकॉर्ड।</div>
+        <div class="column-content">पुराना डेटा।</div>
     </div>
 
     <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">4. AI & PYQ (Questions) <span>+</span></div>
-        <div id="question-list" class="column-content">लोड हो रहा है...</div>
+        <div class="column-header" onclick="toggleMe(this)">4. AI & PYQ <span>+</span></div>
+        <div id="question-list" class="column-content">सवाल लोड हो रहे हैं...</div>
     </div>
 
     <div class="column-box">
         <div class="column-header" onclick="toggleMe(this)">5. Technical Language <span>+</span></div>
-        <div class="column-content">ट्रेड टूल्स और शब्दावली।</div>
+        <div class="column-content">ITI फिटर शब्दावली।</div>
     </div>
 
     <div class="column-box">
         <div class="column-header" onclick="toggleMe(this)">6. Mission 90 Days <span>+</span></div>
-        <div class="column-content">तैयारी का प्रोग्रेस ट्रैकर।</div>
+        <div class="column-content">स्टडी प्लान और लक्ष्य।</div>
     </div>
 </div>
 
 <script>
-    // क्लिक पर खोलने और बंद करने का फंक्शन
+    // 1. खोलने और बंद करने का सिस्टम
     function toggleMe(element) {
         var content = element.nextElementSibling;
-        if (content.style.display === "block") {
-            content.style.display = "none";
-            element.querySelector("span").innerText = "+";
-        } else {
-            content.style.display = "block";
-            element.querySelector("span").innerText = "-";
+        content.style.display = (content.style.display === "block") ? "none" : "block";
+        element.querySelector("span").innerText = (content.style.display === "block") ? "-" : "+";
+    }
+
+    // 2. ऑटोमैटिक डेटा खींचने का "PRO" फंक्शन
+    async function fetchData(fileName, elementId) {
+        try {
+            // v=Date.now() से पुराना डेटा (Cache) नहीं दिखेगा, हमेशा नया दिखेगा
+            const response = await fetch(`./${fileName}?v=${Date.now()}`);
+            if (!response.ok) throw new Error("File Missing");
+            const data = await response.json();
+            
+            let html = data.map(item => `
+                <div class="data-item">
+                    <strong>${item.title || item.question || "सूचना"}</strong><br>
+                    ${item.link ? `<a href="${item.link}" target="_blank">क्लिक करें →</a>` : (item.text || item.date || "")}
+                </div>
+            `).join('');
+            
+            document.getElementById(elementId).innerHTML = html || "अभी कोई डेटा नहीं है।";
+        } catch (error) {
+            document.getElementById(elementId).innerHTML = "डेटा लोड नहीं हो सका। कृपया फाइल चेक करें।";
+            console.error("Error loading " + fileName, error);
         }
     }
 
-    // JSON डेटा लोड करने का फंक्शन
-    async function loadData() {
-        // jobs.json लोड करना
-        try {
-            const jRes = await fetch('./jobs.json');
-            if (jRes.ok) {
-                const jobs = await jRes.json();
-                document.getElementById('present-list').innerHTML = jobs.map(j => `
-                    <div class="data-item">
-                        <strong>${j.title}</strong><br>
-                        <small>${j.date || ''}</small>
-                        <a href="${j.link}" target="_blank">View Details →</a>
-                    </div>
-                `).join('');
-            }
-        } catch(e) { console.error(e); }
-
-        // question.json लोड करना
-        try {
-            const qRes = await fetch('./question.json');
-            if (qRes.ok) {
-                const qs = await qRes.json();
-                document.getElementById('question-list').innerHTML = qs.map(q => `
-                    <div class="data-item">${q.question || q.text || "Question Entry"}</div>
-                `).join('');
-            }
-        } catch(e) { console.error(e); }
-    }
-
-    loadData();
+    // पेज लोड होते ही डेटा खींचना शुरू करें
+    fetchData('jobs.json', 'present-list');
+    fetchData('question.json', 'question-list');
 </script>
 
 </body>
-            </html>
-            
+</html>
