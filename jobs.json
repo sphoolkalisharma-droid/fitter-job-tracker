@@ -233,7 +233,7 @@
         "title": "Railway Sarkari Naukri 2025: RRB Technician के इतने पदों पर हो रही भर्ती, सैलरी 90,000 तक - Prabhat Khabar",
         "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPYnJSaGtsRnpoRlhOMnJyYVlWZnRISF9VN24zQ0hRVEp6VXZfcDVyTUY4RVdXdlFtd2JlVjI2YnlDWkN3VGtNWXdhT3BfNTFYbmVfN3l3RVBkd1JoQ3RMMm9sZm96dlNSTEI1bEJfb2Z4QTZUaEU2amlJRXpWQXd4WkJfWWo1Nzllc3FoM2tsc3BNSUJvelpNeGxiYTZSNWdNR0VxMFhjYlF2Um5LMXh0dWtnRGhLUnhMdUI1Wkh2WdIBxAFBVV95cUxNM29mN05KWU1pTmxyT3NQNFNHTFpzeWk5eXhrMC1nTmZ3a1haU1BkZnBXMERLc3BFUW1pdk1Ba2xfZkRZWUJjbktUSjFIa1lGbUs1a0xBQUM5MkduZHNiS05aY2c5QW9WUTBnZXdkYzVFNldUQS1yZm1mdEhlY2hLak1YY2JYVmRyQnFFbHkwa0txb0o1VUI1TzZLS0JoRDVHVU1VUHNiUXc4WHgtLWVTSExQdWxiUEdPSTQxeFA5bW40UmVj?oc=5",
         "date": "Tue, 17 Jun 2025 07:00:00 GMT"
-    },
+     },
     {
         "title": "RRB Calendar 2024 Released: Check Railways NTPC, Group D, MI, JE, Paramedical and Technician Notification Dates - Jagran Josh",
         "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxPLTZYVUdIY29UU0NFdk1aeHdlVHY3d0k4ZVZTekhqWVQ2aUhhZVBYTUtxbDJNNjAwQ0VCZGNUb2JpN0NNdmZ3bV9Bb3pYWGU2UmlnQWZZLWNCek9GNmsxRENka0QtbklGVFp1a1RWeXBGYXdaVl92TjVpaHVfY0RKN1Nvd09rUjBBOW1UNV9tREN1eV9BQlJhNFBzcFA3TjhVcHVnQjFGN3dDNWhMenpfdm5aNFRIMDlMbXVWNGUtRTZDYVQ1Mkd6dk5qRE1Qc0NCZjNGXzV2V1FoQWQwYmtj?oc=5",
@@ -249,4 +249,11 @@
         "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxORHdfVTc1eWk0NkpKVWduZmxQdHNabWQ4Ylpta2stbVdadXV0QlhzTE5hME1sMHdaZWhVNENqMDBmZXp1Z0hvOHZKMEZMNVA1NVlGOTh4X3Vaam5SRDlSVkJYOGRzYVNEcGhzSmlvSjEwb0M1ZkhvY0JEZHVudkhNaUI1S2Z2aXE5Y09SbzhwUG5qbHNaRWZ2WFZKWlFDLUd6bXhYSmxkMkhyVnp6T3dGV25zYzQ2UnR5QTVrY195a3laYVJUdlNoclhqYXpaSlR4STNkeWpEOTBUYTYzQ19GYTNlOGhHZ0p2aUowQmQwNnUxQkdER0E?oc=5",
         "date": "Tue, 09 Jun 2020 07:00:00 GMT"
     }
+   SOURCES = [
+    "https://news.google.com/rss/search?q=iti+fitter+govt+jobs+2026&hl=hi&gl=IN&ceid=IN:hi",
+    "https://news.google.com/rss/search?q=ncl+singrauli+recruitment+2026&hl=hi&gl=IN&ceid=IN:hi",
+    "https://news.google.com/rss/search?q=railway+technician+vacancy+2026&hl=hi&gl=IN&ceid=IN:hi",
+    "https://news.google.com/rss/search?q=sail+fitter+recruitment+2026&hl=hi&gl=IN&ceid=IN:hi"
+] 
+    
 ]
