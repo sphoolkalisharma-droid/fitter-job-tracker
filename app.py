@@ -72,7 +72,7 @@ st.write("---")
 
 # 5. डेटा लोड करना और दिखाना
 try:
-    df = pd.read_csv('jobs.csv')
+    
     
     if df.empty:
         st.warning("⚠️ रडार अभी स्कैन कर रहा है... कृपया Actions रन करें।")
