@@ -3,68 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satyam Mission Selection Pro</title>
+    <title>Satyam Clean Dashboard</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #0f172a; color: white; padding: 10px; }
-        .header { text-align: center; padding: 20px; background: linear-gradient(to right, #1e293b, #3b82f6); border-radius: 10px; margin-bottom: 15px; }
-        .main-grid { display: grid; grid-template-columns: 1fr; gap: 12px; max-width: 900px; margin: 0 auto; }
-        @media (min-width: 650px) { .main-grid { grid-template-columns: 1fr 1fr; } }
-        .column-box { background: #1e293b; border-radius: 12px; border: 1px solid #334155; overflow: hidden; transition: 0.3s; }
-        .column-header { background: #3b82f6; padding: 16px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
-        .column-content { display: none; padding: 15px; border-top: 1px solid #334155; max-height: 450px; overflow-y: auto; }
-        .data-item { background: #0f172a; padding: 12px; margin-bottom: 10px; border-left: 4px solid #3b82f6; border-radius: 6px; font-size: 14px; }
-        .data-item a { color: #60a5fa; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 5px; }
-        .status-bar { height: 10px; background: #334155; border-radius: 5px; margin-top: 10px; overflow: hidden; }
-        .progress { height: 100%; background: #22c55e; width: 50%; } /* 90 दिन का प्रोग्रेस यहाँ से बदलेगा */
+        body { font-family: sans-serif; background-color: #0f172a; color: white; padding: 15px; }
+        .main-grid { display: grid; grid-template-columns: 1fr; gap: 15px; max-width: 800px; margin: 0 auto; }
+        @media (min-width: 600px) { .main-grid { grid-template-columns: 1fr 1fr; } }
+        .column-box { background: #1e293b; border-radius: 12px; border: 1px solid #334155; }
+        .column-header { background: #3b82f6; padding: 15px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; border-radius: 12px 12px 0 0; }
+        .column-content { display: none; padding: 15px; max-height: 350px; overflow-y: auto; }
+        .data-item { background: #0f172a; padding: 12px; margin-bottom: 10px; border-left: 4px solid #ef4444; border-radius: 6px; font-size: 14px; }
+        .data-item.present { border-left-color: #22c55e; } /* Present के लिए हरा रंग */
+        .data-item.upcoming { border-left-color: #f59e0b; } /* Upcoming के लिए पीला रंग */
+        .data-item a { color: #60a5fa; text-decoration: none; font-weight: bold; display: block; margin-top: 5px; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>मिशन सिलेक्शन 2026</h1>
-    <p>ITI फिटर स्पेशल डैशबोर्ड</p>
-</div>
+<h2 style="text-align:center; margin-bottom:20px;">मिशन सिलेक्शन: क्लीन डैशबोर्ड</h2>
 
 <div class="main-grid">
     <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">1. Upcoming Vacancy (News) <span>+</span></div>
-        <div id="upcoming-list" class="column-content">खोज जारी है...</div>
+        <div class="column-header" onclick="toggleMe(this)">1. Upcoming Vacancy <span>+</span></div>
+        <div id="upcoming-list" class="column-content">साफ डेटा लोड हो रहा है...</div>
     </div>
 
     <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">2. Present Vacancy (Auto) <span>+</span></div>
-        <div id="present-list" class="column-content">लोड हो रहा है...</div>
+        <div class="column-header" onclick="toggleMe(this)">2. Present Vacancy <span>+</span></div>
+        <div id="present-list" class="column-content">चेक किया जा रहा है...</div>
     </div>
 
     <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">3. Apprentice Updates <span>+</span></div>
-        <div id="apprentice-list" class="column-content">खोज जारी है...</div>
+        <div class="column-header" onclick="toggleMe(this)">3. Past & Apprentice <span>+</span></div>
+        <div id="past-list" class="column-content">पुराना डेटा...</div>
     </div>
 
     <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">4. AI & PYQ (ITI Fitter) <span>+</span></div>
-        <div class="column-content">
-            <button onclick="loadQuestions()" style="width:100%; padding:10px; background:#22c55e; border:none; color:white; border-radius:5px; cursor:pointer; margin-bottom:10px;">नये सवाल लोड करें</button>
-            <div id="question-box">Loading Questions...</div>
-        </div>
+        <div class="column-header" onclick="toggleMe(this)">4. AI & PYQ <span>+</span></div>
+        <div id="question-list" class="column-content">सवाल लोड हो रहे हैं...</div>
     </div>
 
     <div class="column-box">
         <div class="column-header" onclick="toggleMe(this)">5. Tech Vocabulary <span>+</span></div>
-        <div class="column-content" id="tech-vocab">
-            </div>
+        <div class="column-content">
+            <div class="data-item"><strong>Hacksaw:</strong> मेटल काटने की आरी।</div>
+            <div class="data-item"><strong>Dial Test Indicator:</strong> सूक्ष्म माप के लिए।</div>
+        </div>
     </div>
 
     <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">6. Mission 90 Days Plan <span>+</span></div>
+        <div class="column-header" onclick="toggleMe(this)">6. Mission 90 Days <span>+</span></div>
         <div class="column-content">
-            <div class="data-item">
-                <strong>Current Status:</strong> Day 45 of 90
-                <div class="status-bar"><div class="progress" style="width: 50%;"></div></div>
-                <p style="margin-top:10px;">टारगेट: थ्योरी और न्यूमेरिकल प्रैक्टिस</p>
-            </div>
-            <div class="data-item"><strong>कल का लक्ष्य:</strong> थ्रेड कटिंग और कैलकुलेशन।</div>
+            <div class="data-item">Status: Day 45/90 - पढ़ाई जारी रखें।</div>
         </div>
     </div>
 </div>
@@ -76,53 +66,37 @@
         element.querySelector("span").innerText = (content.style.display === "block") ? "-" : "+";
     }
 
-    // ऑटो न्यूज इंजन (Jobs, Apprentice, Upcoming)
-    async function fetchNews(query, elementId) {
+    // डेटा क्लीन लोडर
+    async function loadCleanData(fileName, elementId, itemClass) {
         try {
-            const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=hi&gl=IN&ceid=IN:hi`;
-            const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
+            const res = await fetch(`./${fileName}?v=${Date.now()}`);
+            if(!res.ok) throw new Error();
             const data = await res.json();
-            document.getElementById(elementId).innerHTML = data.items.slice(0, 6).map(item => `
-                <div class="data-item">
-                    <strong>${item.title}</strong><br>
-                    <a href="${item.link}" target="_blank">View Details →</a>
+            
+            // अगर डेटा 0 है तो "No Vacancy" दिखाओ, फालतू भीड़ नहीं
+            if (data.length === 0) {
+                document.getElementById(elementId).innerHTML = "अभी कोई जानकारी नहीं है।";
+                return;
+            }
+
+            document.getElementById(elementId).innerHTML = data.map(item => `
+                <div class="data-item ${itemClass}">
+                    <strong>${item.title || item.question}</strong>
+                    ${item.link ? `<a href="${item.link}" target="_blank">Link →</a>` : `<p>${item.date || item.answer || ""}</p>`}
                 </div>
             `).join('');
-        } catch(e) { document.getElementById(elementId).innerHTML = "नेटवर्क चेक करें।"; }
-    }
-
-    // 1000+ Question Engine (Randomized)
-    async function loadQuestions() {
-        const qBox = document.getElementById('question-box');
-        try {
-            const res = await fetch('./question.json');
-            const allQs = await res.json();
-            // रैंडम 10 सवाल दिखाना (ताकि 1000 सवाल भारी न पड़ें)
-            const shuffled = allQs.sort(() => 0.5 - Math.random());
-            qBox.innerHTML = shuffled.slice(0, 10).map(q => `
-                <div class="data-item"><strong>Q:</strong> ${q.question}<br><strong>Ans:</strong> ${q.answer || q.text}</div>
-            `).join('');
         } catch(e) {
-            qBox.innerHTML = "<p>अपनी question.json फाइल में सवाल डालें।</p>";
+            document.getElementById(elementId).innerHTML = "डेटा उपलब्ध नहीं है।";
         }
     }
 
-    // पेज लोड होने पर सब एक्टिव करें
-    window.onload = () => {
-        fetchNews("Latest ITI Vacancy 2026", "upcoming-list");
-        fetchNews("Government Jobs ITI Fitter Permanent", "present-list");
-        fetchNews("ITI Apprentice Railway NCL ONGC 2026", "apprentice-list");
-        loadQuestions();
-        
-        // Tech Vocab डेटा
-        const vocab = [
-            {w: "Tolerance", d: "स्वीकार्य त्रुटि की सीमा"},
-            {w: "Hardness", d: "खुरचने का विरोध करने का गुण"},
-            {w: "Ductility", d: "तार के रूप में खींचने की क्षमता"}
-        ];
-        document.getElementById('tech-vocab').innerHTML = vocab.map(v => `<div class="data-item"><strong>${v.w}:</strong> ${v.d}</div>`).join('');
-    };
+    // लोड करना शुरू करें
+    loadCleanData('upcoming.json', 'upcoming-list', 'upcoming');
+    loadCleanData('jobs.json', 'present-list', 'present');
+    loadCleanData('past.json', 'past-list', 'past');
+    loadCleanData('question.json', 'question-list', 'qna');
 </script>
+
 </body>
-                </html>
-    
+            </html>
+            
