@@ -1,43 +1,26 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Details</title>
-    <style>
-        body { font-family: sans-serif; background: #eef2f7; padding: 20px; line-height: 1.6; }
-        .detail-box { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-        .info-row { margin: 15px 0; padding: 10px; background: #f9f9f9; border-left: 5px solid #3498db; }
-        .label { font-weight: bold; color: #555; display: block; }
-        .apply-now { display: block; text-align: center; background: #2ecc71; color: white; padding: 15px; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 20px; }
-        .back-btn { display: inline-block; margin-bottom: 20px; color: #3498db; text-decoration: none; }
-    </style>
-</head>
-<body>
-    <div class="detail-box">
-        <a href="index.html" class="back-btn">← वापस जाएँ</a>
-        <div id="content">जानकारी लोड हो रही है...</div>
-    </div>
-
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const jobId = urlParams.get('id');
-
-        fetch('jobs.json').then(res => res.json()).then(data => {
-            const job = data[jobId];
-            if (!job) { document.getElementById('content').innerHTML = "नौकरी नहीं मिली।"; return; }
-
-            document.getElementById('content').innerHTML = `
-                <h1>${job.title}</h1>
-                <div class="info-row"><span class="label">विभाग:</span> ${job.company}</div>
-                <div class="info-row"><span class="label">लोकेशन:</span> ${job.location || 'All India'}</div>
-                <div class="info-row"><span class="label">पद (Post):</span> Fitter & Technical Trades</div>
-                <div class="info-row"><span class="label">योग्यता:</span> 10th + ITI (Fitter)</div>
-                <div class="info-row"><span class="label">जरूरी नोट:</span> यह एक Permanent सरकारी नौकरी है। कृपया नोटिफिकेशन ध्यान से पढ़ें।</div>
-                <a href="${job.link}" target="_blank" class="apply-now">ऑफिसियल वेबसाइट पर जाएँ</a>
-            `;
-        });
-    </script>
-</body>
-</html>
+[
+  {
+    "id": "FITTER_PYQ_005",
+    "question": "वर्नियर बेवल प्रोट्रैक्टर (Vernier Bevel Protractor) की सटीकता (Least Count) क्या है?",
+    "interaction_type": "SELECT_TO_REVEAL",
+    "options": [
+      { "label": "Option A", "value": "1 Minute", "is_correct": false },
+      { "label": "Option B", "value": "5 Minutes", "is_correct": true },
+      { "label": "Option C", "value": "0.5 Degree", "is_correct": false },
+      { "label": "Option D", "value": "1 Degree", "is_correct": false }
+    ],
+    "explanation_hidden": "वर्नीयर बेवल प्रोट्रैक्टर का उपयोग कोण (Angle) मापने के लिए किया जाता है और इसकी शुद्धता 5 मिनट होती है।"
+  },
+  {
+    "id": "TECH_LANG_002",
+    "question": "Technical Term: 'Interchangeability' का सही अर्थ क्या है?",
+    "interaction_type": "CLICK_TO_EXPAND",
+    "options": [
+      { "label": "A", "value": "बदलाव की क्षमता (Mass Production में उपयोगी)", "is_correct": true },
+      { "label": "B", "value": "सिर्फ एक ही मशीन पर फिट होना", "is_correct": false },
+      { "label": "C", "value": "टूल को दोबारा तेज करना", "is_correct": false },
+      { "label": "D", "value": "पार्ट्स को वेल्ड करना", "is_correct": false }
+    ],
+    "explanation_hidden": "बिना किसी खास फिटिंग के जब एक बैच के पार्ट्स दूसरे बैच के पार्ट्स के साथ आसानी से फिट हो जाएँ, उसे इंटरचेंजेबिलिटी कहते हैं।"
+  }
+]
