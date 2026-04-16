@@ -1,1 +1,26 @@
-github/workflows/main.yml
+name: Auto Job Update
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install pandas
+        run: pip install pandas
+      - name: Run Scraper
+        run: python scraper.py
+      - name: Save Data
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add jobs.csv
+          git commit -m "Auto Update" || exit 0
+          git push
