@@ -46,4 +46,5 @@ def scrape_all_jobs():
 
 if __name__ == "__main__":
     scrape_all_jobs()
+    https://news.google.com/rss/search?q=iti+fitter+govt+jobs+2026&hl=hi&gl=IN&ceid=IN:hi
                         
