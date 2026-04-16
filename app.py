@@ -57,9 +57,9 @@ st.markdown("""
 
 # 3. वेबसाइट का हेडर
 st.markdown("<h1 class='shining-text'>SATYAM SHARMA</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; font-size: 1.2rem; color: #BDC3C7;'>🚀 THE  FITTER JOB RADAR 2026</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; font-size: 1.2rem; color: #BDC3C7;'>🚀 THE ULTIMATE FITTER JOB RADAR 2026</p>", unsafe_allow_html=True)
 
-# 4. स्टेटस बारULTIMATE
+# 4. स्टेटस बार
 col_a, col_b, col_c = st.columns(3)
 with col_a:
     st.metric("टारगेट", "PSU & RAILWAYS")
