@@ -12,9 +12,10 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
-      - name: Install pandas
-        run: pip install pandas
+          python-version: '3.9'name: Install dependencies
+        run: |
+          pip install pandas requests beautifulsoup4 feedparser
+        
       - name: Run Scraper
         run: python scraper.py
       - name: Save Data
