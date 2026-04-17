@@ -120,7 +120,7 @@
             try {
                 const res = await fetch('./question.json');
                 questions = await res.json();
-            } catch(e) { document.getElementById('q-content').innerHTML = "कृपया question.json फाइल बनाएं।"; }
+            } catch(e) { document.getElementById('q-content').innerHTML = "कृपया question.json फाइल बनाएं।"; } 
         }
         getNewQ();
     }
