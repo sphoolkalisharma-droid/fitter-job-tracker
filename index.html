@@ -3,79 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satyam Pure Dashboard</title>
+    <title>Satyam Pro Dashboard 2026</title>
     <style>
-        :root { --bg: #020617; --card: #1e293b; --accent: #3b82f6; --text: #f8fafc; }
+        :root { --bg: #020617; --card: #1e293b; --accent: #3b82f6; --text: #f8fafc; --success: #22c55e; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; padding: 15px; }
         
-        /* क्लीन हेडर */
         .header { text-align: center; margin-bottom: 25px; padding: 20px; background: linear-gradient(to right, #1e293b, #0f172a); border-radius: 15px; border-bottom: 3px solid var(--accent); }
         
-        /* मुख्य ग्रिड */
         .grid { display: grid; grid-template-columns: 1fr; gap: 15px; max-width: 900px; margin: 0 auto; }
         @media (min-width: 650px) { .grid { grid-template-columns: 1fr 1fr; } }
 
-        /* कार्ड डिजाइन */
-        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #334155; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #334155; }
         .card-header { background: var(--accent); padding: 15px; font-weight: bold; display: flex; justify-content: space-between; cursor: pointer; }
-        .card-body { padding: 15px; display: none; background: #0f172a; max-height: 350px; overflow-y: auto; }
+        .card-body { padding: 15px; display: none; background: #0f172a; max-height: 400px; overflow-y: auto; }
 
-        /* डेटा आइटम्स (सिर्फ काम की चीज) */
-        .job-item { background: #1e293b; padding: 12px; margin-bottom: 10px; border-radius: 8px; border-left: 5px solid #22c55e; }
-        .job-item strong { color: #60a5fa; font-size: 14px; display: block; margin-bottom: 5px; }
-        .job-item a { color: #fbbf24; text-decoration: none; font-size: 13px; font-weight: bold; }
+        .item { background: #1e293b; padding: 12px; margin-bottom: 10px; border-radius: 8px; border-left: 5px solid var(--success); }
+        .item strong { color: #60a5fa; font-size: 14px; display: block; margin-bottom: 5px; }
+        .item a { color: #fbbf24; text-decoration: none; font-size: 13px; font-weight: bold; }
 
-        /* टेस्ट इंटरफेस (नया इंटरफेस) */
+        /* नया इंटरफेस डिजाइन */
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 1000; padding: 20px; }
-        .modal { max-width: 600px; margin: 50px auto; background: var(--card); padding: 25px; border-radius: 15px; border: 1px solid var(--accent); }
-        .btn-test { width: 100%; padding: 15px; background: #22c55e; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .close-btn { float: right; color: #ef4444; cursor: pointer; font-weight: bold; }
+        .modal { max-width: 600px; margin: 50px auto; background: var(--card); padding: 25px; border-radius: 15px; border: 1px solid var(--accent); position: relative; }
+        .btn { width: 100%; padding: 15px; background: var(--success); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .close-btn { position: absolute; top: 10px; right: 15px; color: #ef4444; cursor: pointer; font-size: 20px; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>मिशन सिलेक्शन 2026</h1>
-    <p>ITI फिटर: शुद्ध भर्ती सूचना</p>
+    <h1>सत्यम सिलेक्शन हब</h1>
+    <p>ITI फिटर | ऑटो-अपडेट डैशबोर्ड</p>
 </div>
 
 <div class="grid">
     <div class="card">
-        <div class="card-header" onclick="toggle(this)">1. वर्तमान भर्ती (Pure Data) <span>+</span></div>
-        <div id="present-box" class="card-body">डेटा साफ़ किया जा रहा है...</div>
+        <div class="card-header" onclick="toggle(this)">1. वर्तमान सरकारी भर्ती (Auto) <span>+</span></div>
+        <div id="job-box" class="card-body" style="display:block;">डेटा लोड हो रहा है...</div>
     </div>
 
     <div class="card">
-        <div class="card-header" onclick="toggle(this)">2. आने वाली भर्ती (Limited) <span>+</span></div>
-        <div id="upcoming-box" class="card-body">खोज जारी है...</div>
-    </div>
-
-    <div class="card">
-        <div class="card-header" onclick="toggle(this)">3. टेस्ट प्रैक्टिस (1000 Set) <span>+</span></div>
-        <div class="card-body" style="display:block;">
-            <p style="font-size: 13px; margin-bottom: 10px;">यहाँ क्लिक करके नए इंटरफेस में सवाल पढ़ें:</p>
-            <button class="btn-test" onclick="openTest()">प्रैक्टिस शुरू करें</button>
+        <div class="card-header" onclick="toggle(this)">2. मेरी डॉक्यूमेंट लाइब्रेरी <span>+</span></div>
+        <div class="card-body">
+            <div class="item" style="border-left-color: #3b82f6;">
+                <strong>📄 मेरा बायोडाटा / Resume</strong>
+                <a href="LINK_HERE" target="_blank">देखें →</a>
+            </div>
+            <div class="item" style="border-left-color: #3b82f6;">
+                <strong>📚 फिटर नोट्स (PDF)</strong>
+                <a href="LINK_HERE" target="_blank">डाउनलोड करें →</a>
+            </div>
+            <div class="item" style="border-left-color: #3b82f6;">
+                <strong>🎖️ ITI सर्टिफिकेट</strong>
+                <a href="LINK_HERE" target="_blank">खोलें →</a>
+            </div>
         </div>
     </div>
 
     <div class="card">
-        <div class="card-header" onclick="toggle(this)">4. मिशन 90 दिन का प्लान <span>+</span></div>
+        <div class="card-header" onclick="toggle(this)">3. 1000+ सवाल (New Interface) <span>+</span></div>
         <div class="card-body">
-            <div class="job-item">लक्ष्य: ITI Fitter Topper</div>
-            <div class="job-item">आज का काम: माइक्रोमीटर रीडिंग</div>
+            <p style="margin-bottom:10px; font-size:14px;">तैयारी चेक करने के लिए बटन दबाएं:</p>
+            <button class="btn" onclick="openTest()">प्रैक्टिस शुरू करें</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" onclick="toggle(this)">4. मिशन 90 डेज <span>+</span></div>
+        <div class="card-body">
+            <div class="item">Status: एक्टिव</div>
+            <div class="item">टारगेट: रेलवे / IGM / BTSC</div>
         </div>
     </div>
 </div>
 
 <div id="testUI" class="overlay">
     <div class="modal">
-        <span class="close-btn" onclick="closeTest()">[बंद करें X]</span>
-        <h2 style="margin-bottom:20px;">ITI फिटर प्रश्न बैंक</h2>
-        <div id="q-content" style="min-height: 150px; font-size: 18px;">
+        <span class="close-btn" onclick="closeTest()">✖</span>
+        <h2 style="margin-bottom:20px; color: var(--accent);">ITI फिटर प्रश्न बैंक</h2>
+        <div id="q-content" style="min-height: 150px; font-size: 18px; line-height: 1.6;">
             सवाल लोड हो रहे हैं...
         </div>
-        <button class="btn-test" style="background:var(--accent);" onclick="getNewQ()">अगला सवाल</button>
+        <button class="btn" style="background:var(--accent);" onclick="getNewQ()">अगला सवाल</button>
     </div>
 </div>
 
@@ -86,30 +95,24 @@
         el.querySelector("span").innerText = (body.style.display === "block") ? "-" : "+";
     }
 
-    // डेटा को नया और साफ़ बनाने का इंजन
-    async function fetchAndClean(query, elementId) {
+    // ऑटो वैकेंसी इंजन (बिना नाम लिए)
+    async function fetchAutoJobs() {
         try {
-            const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}+ITI+Fitter+Vacancy&hl=hi&gl=IN&ceid=IN:hi`;
+            const query = "ITI Fitter Permanent Govt Vacancy 2026";
+            const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=hi&gl=IN&ceid=IN:hi`;
             const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
             const data = await res.json();
             
-            // डेटा को फिल्टर करके सिर्फ काम की चीज निकालना
-            let cleanHTML = data.items.slice(0, 4).map(item => {
-                // टाइटल से फालतू शब्द हटाना
-                let cleanTitle = item.title.split(' - ')[0].substring(0, 60) + "...";
-                return `
-                    <div class="job-item">
-                        <strong>📌 ${cleanTitle}</strong>
-                        <a href="${item.link}" target="_blank">आधिकारिक लिंक देखें →</a>
-                    </div>
-                `;
-            }).join('');
-
-            document.getElementById(elementId).innerHTML = cleanHTML || "अभी कोई सटीक भर्ती नहीं मिली।";
-        } catch(e) { document.getElementById(elementId).innerHTML = "कनेक्शन एरर।"; }
+            document.getElementById('job-box').innerHTML = data.items.slice(0, 4).map(item => `
+                <div class="item">
+                    <strong>📌 ${item.title.split(' - ')[0]}</strong>
+                    <a href="${item.link}" target="_blank">पूरी जानकारी यहाँ है →</a>
+                </div>
+            `).join('');
+        } catch(e) { document.getElementById('job-box').innerHTML = "नेटवर्क स्लो है, रिफ्रेश करें।"; }
     }
 
-    // टेस्ट इंजन
+    // टेस्ट इंजन लॉजिक
     let questions = [];
     async function openTest() {
         document.getElementById('testUI').style.display = 'block';
@@ -117,7 +120,7 @@
             try {
                 const res = await fetch('./question.json');
                 questions = await res.json();
-            } catch(e) { document.getElementById('q-content').innerHTML = "question.json फाइल नहीं मिली।"; }
+            } catch(e) { document.getElementById('q-content').innerHTML = "कृपया question.json फाइल बनाएं।"; }
         }
         getNewQ();
     }
@@ -126,20 +129,19 @@
         if(questions.length === 0) return;
         let q = questions[Math.floor(Math.random() * questions.length)];
         document.getElementById('q-content').innerHTML = `
-            <p style="color:#94a3b8; font-size:14px; margin-bottom:10px;">सवालों के भंडार से रैंडम चयन:</p>
-            <p><strong>प्रश्न:</strong> ${q.question}</p>
-            <p style="margin-top:20px; color:#22c55e;"><strong>उत्तर:</strong> ${q.answer}</p>
+            <p style="color:#22c55e; font-weight:bold; margin-bottom:10px;">प्रश्न:</p>
+            <p>${q.question}</p>
+            <hr style="margin:20px 0; border:0.1px solid #334155;">
+            <p style="color:#60a5fa; font-weight:bold; margin-bottom:10px;">उत्तर:</p>
+            <p>${q.answer}</p>
         `;
     }
 
     function closeTest() { document.getElementById('testUI').style.display = 'none'; }
 
-    window.onload = () => {
-        fetchAndClean("Latest Permanent Recruitment", "present-box");
-        fetchAndClean("Upcoming Technician Vacancy", "upcoming-box");
-    };
+    window.onload = fetchAutoJobs;
 </script>
 
 </body>
-</html>
-
+            </html>
+            
