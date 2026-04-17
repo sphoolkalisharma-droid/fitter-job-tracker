@@ -1,103 +1,145 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satyam Selection Dashboard</title>
+    <title>Satyam Pure Dashboard</title>
     <style>
+        :root { --bg: #020617; --card: #1e293b; --accent: #3b82f6; --text: #f8fafc; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: sans-serif; background-color: #020617; color: white; padding: 10px; }
-        .main-grid { display: grid; grid-template-columns: 1fr; gap: 12px; max-width: 800px; margin: 0 auto; }
-        @media (min-width: 600px) { .main-grid { grid-template-columns: 1fr 1fr; } }
-        .column-box { background: #1e293b; border-radius: 12px; border: 1px solid #334155; overflow: hidden; }
-        .column-header { background: #2563eb; padding: 15px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; }
-        .column-content { display: none; padding: 15px; background: #0f172a; max-height: 400px; overflow-y: auto; }
-        .data-item { background: #1e293b; padding: 12px; margin-bottom: 10px; border-left: 4px solid #22c55e; border-radius: 6px; font-size: 14px; }
-        .data-item a { color: #60a5fa; text-decoration: none; font-weight: bold; display: block; margin-top: 5px; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; padding: 15px; }
+        
+        /* क्लीन हेडर */
+        .header { text-align: center; margin-bottom: 25px; padding: 20px; background: linear-gradient(to right, #1e293b, #0f172a); border-radius: 15px; border-bottom: 3px solid var(--accent); }
+        
+        /* मुख्य ग्रिड */
+        .grid { display: grid; grid-template-columns: 1fr; gap: 15px; max-width: 900px; margin: 0 auto; }
+        @media (min-width: 650px) { .grid { grid-template-columns: 1fr 1fr; } }
+
+        /* कार्ड डिजाइन */
+        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #334155; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .card-header { background: var(--accent); padding: 15px; font-weight: bold; display: flex; justify-content: space-between; cursor: pointer; }
+        .card-body { padding: 15px; display: none; background: #0f172a; max-height: 350px; overflow-y: auto; }
+
+        /* डेटा आइटम्स (सिर्फ काम की चीज) */
+        .job-item { background: #1e293b; padding: 12px; margin-bottom: 10px; border-radius: 8px; border-left: 5px solid #22c55e; }
+        .job-item strong { color: #60a5fa; font-size: 14px; display: block; margin-bottom: 5px; }
+        .job-item a { color: #fbbf24; text-decoration: none; font-size: 13px; font-weight: bold; }
+
+        /* टेस्ट इंटरफेस (नया इंटरफेस) */
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 1000; padding: 20px; }
+        .modal { max-width: 600px; margin: 50px auto; background: var(--card); padding: 25px; border-radius: 15px; border: 1px solid var(--accent); }
+        .btn-test { width: 100%; padding: 15px; background: #22c55e; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .close-btn { float: right; color: #ef4444; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<h2 style="text-align:center; margin: 20px 0;">मिशन सिलेक्शन: लाइव 2026</h2>
+<div class="header">
+    <h1>मिशन सिलेक्शन 2026</h1>
+    <p>ITI फिटर: शुद्ध भर्ती सूचना</p>
+</div>
 
-<div class="main-grid">
-    <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">1. Present Jobs (Auto) <span>+</span></div>
-        <div id="box-1" class="column-content" style="display:block;">लोड हो रहा है...</div>
+<div class="grid">
+    <div class="card">
+        <div class="card-header" onclick="toggle(this)">1. वर्तमान भर्ती (Pure Data) <span>+</span></div>
+        <div id="present-box" class="card-body">डेटा साफ़ किया जा रहा है...</div>
     </div>
 
-    <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">2. Upcoming News <span>+</span></div>
-        <div id="box-2" class="column-content">अपडेट चेक करें...</div>
+    <div class="card">
+        <div class="card-header" onclick="toggle(this)">2. आने वाली भर्ती (Limited) <span>+</span></div>
+        <div id="upcoming-box" class="card-body">खोज जारी है...</div>
     </div>
 
-    <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">3. Apprentice Updates <span>+</span></div>
-        <div id="box-3" class="column-content">चेक किया जा रहा है...</div>
-    </div>
-
-    <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">4. AI & PYQ 1000 Set <span>+</span></div>
-        <div id="q-list" class="column-content">question.json लोड करें।</div>
-    </div>
-
-    <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">5. Technical Vocabulary <span>+</span></div>
-        <div class="column-content">
-            <div class="data-item"><strong>Tolerance:</strong> स्वीकृत माप की सीमा।</div>
+    <div class="card">
+        <div class="card-header" onclick="toggle(this)">3. टेस्ट प्रैक्टिस (1000 Set) <span>+</span></div>
+        <div class="card-body" style="display:block;">
+            <p style="font-size: 13px; margin-bottom: 10px;">यहाँ क्लिक करके नए इंटरफेस में सवाल पढ़ें:</p>
+            <button class="btn-test" onclick="openTest()">प्रैक्टिस शुरू करें</button>
         </div>
     </div>
 
-    <div class="column-box">
-        <div class="column-header" onclick="toggleMe(this)">6. Mission 90 Days <span>+</span></div>
-        <div class="column-content">
-            <div class="data-item">लक्ष्य: 100% सिलेक्शन।</div>
+    <div class="card">
+        <div class="card-header" onclick="toggle(this)">4. मिशन 90 दिन का प्लान <span>+</span></div>
+        <div class="card-body">
+            <div class="job-item">लक्ष्य: ITI Fitter Topper</div>
+            <div class="job-item">आज का काम: माइक्रोमीटर रीडिंग</div>
         </div>
     </div>
 </div>
 
+<div id="testUI" class="overlay">
+    <div class="modal">
+        <span class="close-btn" onclick="closeTest()">[बंद करें X]</span>
+        <h2 style="margin-bottom:20px;">ITI फिटर प्रश्न बैंक</h2>
+        <div id="q-content" style="min-height: 150px; font-size: 18px;">
+            सवाल लोड हो रहे हैं...
+        </div>
+        <button class="btn-test" style="background:var(--accent);" onclick="getNewQ()">अगला सवाल</button>
+    </div>
+</div>
+
 <script>
-    function toggleMe(el) {
-        let content = el.nextElementSibling;
-        content.style.display = (content.style.display === "block") ? "none" : "block";
-        el.querySelector("span").innerText = (content.style.display === "block") ? "-" : "+";
+    function toggle(el) {
+        let body = el.nextElementSibling;
+        body.style.display = (body.style.display === "block") ? "none" : "block";
+        el.querySelector("span").innerText = (body.style.display === "block") ? "-" : "+";
     }
 
-    // ऑटो न्यूज़ के लिए स्मार्ट फंक्शन
-    async function fetchJobs(query, elementId, backupTitle) {
+    // डेटा को नया और साफ़ बनाने का इंजन
+    async function fetchAndClean(query, elementId) {
         try {
-            const searchUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=hi&gl=IN&ceid=IN:hi`;
-            const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(searchUrl)}`);
+            const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}+ITI+Fitter+Vacancy&hl=hi&gl=IN&ceid=IN:hi`;
+            const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
             const data = await res.json();
             
-            if (data.items && data.items.length > 0) {
-                document.getElementById(elementId).innerHTML = data.items.slice(0, 3).map(i => `
-                    <div class="data-item">
-                        <strong>${i.title.split(' - ')[0]}</strong>
-                        <a href="${i.link}" target="_blank">View Details →</a>
+            // डेटा को फिल्टर करके सिर्फ काम की चीज निकालना
+            let cleanHTML = data.items.slice(0, 4).map(item => {
+                // टाइटल से फालतू शब्द हटाना
+                let cleanTitle = item.title.split(' - ')[0].substring(0, 60) + "...";
+                return `
+                    <div class="job-item">
+                        <strong>📌 ${cleanTitle}</strong>
+                        <a href="${item.link}" target="_blank">आधिकारिक लिंक देखें →</a>
                     </div>
-                `).join('');
-            } else {
-                throw new Error("No Data");
-            }
-        } catch(e) {
-            // अगर इंटरनेट से कुछ न मिले, तो यह बैकअप दिखेगा (डिब्बा खाली नहीं रहेगा)
-            document.getElementById(elementId).innerHTML = `
-                <div class="data-item" style="border-left-color: #f59e0b;">
-                    <strong>${backupTitle}</strong>
-                    <p style="font-size:12px;">इंटरनेट न्यूज़ लोड नहीं हो पाई, कृपया पेज रिफ्रेश करें।</p>
-                </div>
-            `;
-        }
+                `;
+            }).join('');
+
+            document.getElementById(elementId).innerHTML = cleanHTML || "अभी कोई सटीक भर्ती नहीं मिली।";
+        } catch(e) { document.getElementById(elementId).innerHTML = "कनेक्शन एरर।"; }
     }
 
+    // टेस्ट इंजन
+    let questions = [];
+    async function openTest() {
+        document.getElementById('testUI').style.display = 'block';
+        if(questions.length === 0) {
+            try {
+                const res = await fetch('./question.json');
+                questions = await res.json();
+            } catch(e) { document.getElementById('q-content').innerHTML = "question.json फाइल नहीं मिली।"; }
+        }
+        getNewQ();
+    }
+
+    function getNewQ() {
+        if(questions.length === 0) return;
+        let q = questions[Math.floor(Math.random() * questions.length)];
+        document.getElementById('q-content').innerHTML = `
+            <p style="color:#94a3b8; font-size:14px; margin-bottom:10px;">सवालों के भंडार से रैंडम चयन:</p>
+            <p><strong>प्रश्न:</strong> ${q.question}</p>
+            <p style="margin-top:20px; color:#22c55e;"><strong>उत्तर:</strong> ${q.answer}</p>
+        `;
+    }
+
+    function closeTest() { document.getElementById('testUI').style.display = 'none'; }
+
     window.onload = () => {
-        // यहाँ हमने बैकअप मैसेज भी डाल दिए हैं
-        fetchJobs("Latest ITI Fitter Permanent Jobs", "box-1", "IGM/SPMCIL/BTSC भर्ती देखें");
-        fetchJobs("Upcoming Railway Technician 2026", "box-2", "रेलवे अपकमिंग सूचना");
-        fetchJobs("Railway ITI Apprentice Merit List", "box-3", "NCL/Apprentice अपडेट");
+        fetchAndClean("Latest Permanent Recruitment", "present-box");
+        fetchAndClean("Upcoming Technician Vacancy", "upcoming-box");
     };
 </script>
 
 </body>
-    </html>
+</html>
+
